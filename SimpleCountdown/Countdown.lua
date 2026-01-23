@@ -19,11 +19,14 @@ function Update()
 
             local outM, outW, outD = "0m", "0w", "0d"
             if diff > 0 then
-                local totalDays = math.floor(diff / 86400)
-                local totalWeeks = math.floor(totalDays / 7)
+                local totalDays = math.ceil(diff / 86400)
+                local totalWeeks = math.ceil(diff / (86400 * 7))
                 local totalMonths = (targetTable.year - now.year) * 12 + (targetTable.month - now.month)
-                if targetTable.day < now.day then totalMonths = totalMonths - 1 end
-                
+                if targetTable.day < now.day then 
+                else
+                    if totalMonths == 0 then totalMonths = 1 end
+                end
+                if totalMonths <= 0 then totalMonths = 1 end
                 outM = totalMonths .. "m"
                 outW = totalWeeks .. "w"
                 outD = totalDays .. "d"
